@@ -162,7 +162,8 @@ document.addEventListener("DOMContentLoaded", () => {
     pdf.save("Abroad_Cell_Form.pdf");
 }
  </script> -->
-    <script>
+    
+    <!-- <script>
 async function downloadPDF() {
     const { jsPDF } = window.jspdf;
     const element = document.getElementById("formContent");
@@ -198,11 +199,52 @@ async function downloadPDF() {
 
     pdf.save("Abroad_Cell_Form.pdf");
 }
+</script> -->
+
+
+    <script>
+async function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const element = document.getElementById("formContent");
+
+    // ❤️ Keep original size
+    const originalWidth = element.style.width;
+    const originalMaxWidth = element.style.maxWidth;
+
+    // 🔥 STEP 1: Make the form fit inside mobile screen
+    element.style.width = "600px";
+    element.style.maxWidth = "600px";
+    element.style.transform = "scale(1)";
+    element.style.transformOrigin = "top left";
+
+    await new Promise(r => setTimeout(r, 200));
+
+    // 🔥 STEP 2: Capture screenshot
+    const canvas = await html2canvas(element, {
+        scale: 1.4,          // Good clarity
+        useCORS: true
+    });
+
+    // Restore original size
+    element.style.width = originalWidth;
+    element.style.maxWidth = originalMaxWidth;
+
+    // 🔥 STEP 3: Compress image (keeps under 1MB)
+    const imgData = canvas.toDataURL("image/jpeg", 0.65);
+
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const imgHeight = (canvas.height * pageWidth) / canvas.width;
+
+    pdf.addImage(imgData, "JPEG", 0, 0, pageWidth, imgHeight);
+    pdf.save("Abroad_Cell_Form.pdf");
+}
 </script>
 
 
 </body>
 </html>
+
 
 
 
