@@ -13,12 +13,7 @@
 </head>
 <body>
 
-
-
-<!-- <div class="form-container" id="formContent"> -->
-
-    <button class="download-btn" onclick="downloadPDF()">DOWNLOAD PDF</button>
-
+<button class="download-btn" onclick="downloadPDF()">DOWNLOAD PDF</button>
 
 <div class="form-container" id="formContent">
 
@@ -53,9 +48,9 @@
         <tr>
             <td>DATE OF BIRTH</td>
             <td>
-                <input type="text" placeholder="DD / MM / YYYY" class="date-field">
+                <input type="date" class="date-field">
                 DATE OF MARRIAGE
-                <input type="text" placeholder="DD / MM / YYYY" class="date-field">
+                <input type="date" class="date-field">
             </td>
         </tr>
 
@@ -77,17 +72,10 @@
             <tr><th>NAME</th><th>DOB</th><th>RELATION</th><th>PROFESSION</th></tr>
         </thead>
         <tbody>
-            <tr><td><input></td><td><input placeholder="DD / MM / YYYY"></td>
-                <td><input></td><td><input></td></tr>
-
-            <tr><td><input></td><td><input placeholder="DD / MM / YYYY"></td>
-                <td><input></td><td><input></td></tr>
-
-            <tr><td><input></td><td><input placeholder="DD / MM / YYYY"></td>
-                <td><input></td><td><input></td></tr>
-
-            <tr><td><input></td><td><input placeholder="DD / MM / YYYY"></td>
-                <td><input></td><td><input></td></tr>
+            <tr><td><input></td><td><input type="date"></td><td><input></td><td><input></td></tr>
+            <tr><td><input></td><td><input type="date"></td><td><input></td><td><input></td></tr>
+            <tr><td><input></td><td><input type="date"></td><td><input></td><td><input></td></tr>
+            <tr><td><input></td><td><input type="date"></td><td><input></td><td><input></td></tr>
         </tbody>
     </table>
 
@@ -121,62 +109,53 @@
     </table>
 
     <br><br>
-    DATE: <input placeholder="DD / MM / YYYY">
+    DATE: <input type="date">
     <div class="signature">SIGNATURE</div>
 
 </div>
 
-<!-- UNIVERSAL UPPERCASE SCRIPT -->
+<!-- AUTO UPPERCASE -->
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll("input, textarea").forEach(el => {
-        el.addEventListener("input", function () {
-            this.value = this.value.toUpperCase();
-        });
-    });
+document.querySelectorAll("input,textarea").forEach(el=>{
+    el.addEventListener("input",()=> el.value = el.value.toUpperCase());
 });
 </script>
 
-
-<!-- FINAL PERFECT PDF SCRIPT -->
+<!-- PERFECT ONE-PAGE PDF SCRIPT (COMPRESSED) -->
 <script>
-    async function downloadPDF() {
+async function downloadPDF() {
     const { jsPDF } = window.jspdf;
     const element = document.getElementById("formContent");
 
-    // 🔥 STEP 1 — TEMPORARY SCALE FOR MOBILE (fits everything in canvas)
-    element.style.transform = "scale(0.70)";
+    // TEMP SCALE FOR PHONE
+    element.style.transform = "scale(0.75)";
     element.style.transformOrigin = "top left";
 
-    // wait for render
-    await new Promise(r => setTimeout(r, 300));
+    await new Promise(res => setTimeout(res, 300));
 
-    // 🔥 STEP 2 — CAPTURE
     const canvas = await html2canvas(element, {
-        scale: 2,
+        scale: 1.3,
         useCORS: true,
         scrollX: 0,
         scrollY: 0,
-        windowWidth: element.scrollWidth * 0.70
+        windowWidth: element.scrollWidth * 0.75
     });
 
     // RESET
     element.style.transform = "";
-    element.style.transformOrigin = "";
 
-    const imgData = canvas.toDataURL("image/png");
+    // Compressed JPEG
+    const imgData = canvas.toDataURL("image/jpeg", 0.6);
 
     const pdf = new jsPDF("p", "mm", "a4");
     const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgHeight = canvas.height * (pageWidth / canvas.width);
 
-    // Fit entire scaled image inside 1 page
-    pdf.addImage(imgData, "PNG", 0, 0, pageWidth, pageHeight);
+    pdf.addImage(imgData, "JPEG", 0, 0, pageWidth, imgHeight, undefined, "FAST");
 
     pdf.save("Abroad_Cell_Form.pdf");
 }
- </script>
+</script>
 
 </body>
 </html>
-
