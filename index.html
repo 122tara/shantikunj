@@ -207,38 +207,36 @@ async function downloadPDF() {
     const { jsPDF } = window.jspdf;
     const element = document.getElementById("formContent");
 
-    // Save original layout
+    // ❤️ Keep original size
     const originalWidth = element.style.width;
     const originalMaxWidth = element.style.maxWidth;
 
-    // 🔥 FORCE FULL FORM TO FIT MOBILE SCREEN DURING CAPTURE
-    element.style.width = "520px";
-    element.style.maxWidth = "520px";
+    // 🔥 STEP 1: Make the form fit inside mobile screen
+    element.style.width = "800px";
+    element.style.maxWidth = "800px";
     element.style.transform = "scale(1)";
     element.style.transformOrigin = "top left";
 
     await new Promise(r => setTimeout(r, 200));
 
-    // 🔥 CAPTURE CANVAS
+    // 🔥 STEP 2: Capture screenshot
     const canvas = await html2canvas(element, {
-        scale: 1.6,        // good quality in 1-page
+        scale: 1.4,          // Good clarity
         useCORS: true
     });
 
-    // Restore original layout
+    // Restore original size
     element.style.width = originalWidth;
     element.style.maxWidth = originalMaxWidth;
 
-    // 🔥 COMPRESS IMAGE TO <1MB
-    const imgData = canvas.toDataURL("image/jpeg", 0.70);
+    // 🔥 STEP 3: Compress image (keeps under 1MB)
+    const imgData = canvas.toDataURL("image/jpeg", 0.65);
 
     const pdf = new jsPDF("p", "mm", "a4");
     const pageWidth = pdf.internal.pageSize.getWidth();
-
     const imgHeight = (canvas.height * pageWidth) / canvas.width;
 
     pdf.addImage(imgData, "JPEG", 0, 0, pageWidth, imgHeight);
-
     pdf.save("Abroad_Cell_Form.pdf");
 }
 </script>
@@ -246,6 +244,7 @@ async function downloadPDF() {
 
 </body>
 </html>
+
 
 
 
