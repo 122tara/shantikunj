@@ -1,0 +1,207 @@
+/* ---------- GLOBAL ---------- */
+body {
+    /* font-family: 'Segoe UI', Arial, sans-serif; */
+    background: linear-gradient(to bottom, #fde82d8a, #fff6f6);
+    margin: 0;
+    padding: 0;
+}
+
+.form-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 25px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+    /* background-color: #f4d03f; */
+}
+
+
+/* REAL WATERMARK IMAGE */
+/* .wm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 450px;
+    transform: translate(-50%, -50%);
+    opacity: 0.18;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Make all form content appear ABOVE watermark */
+/* .form-container > *:not(.wm) {
+    position: relative;
+    z-index: 5;
+} */ 
+
+
+.form-container * {
+    position: relative;
+    z-index: 2;
+    font-weight: bold;
+}
+
+/* ---------- HEADER ---------- */
+.custom-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Single color header background */
+.header-bg {
+    background: #f4d03f;     /* Yellow tone behind header */
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #cccccc;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+/* MAIN HEADING in ONE COLOUR */
+.hindi-title {
+    font-size: 42px;
+    font-weight: bold;
+    font-family: "Noto Sans Devanagari", "Mangal", sans-serif;
+    color: #059218c7;   /* SINGLE COLOUR */
+}
+
+/* Remove multicolor highlight */
+.green-text {
+    color: #059218c7;
+    background: none;
+}
+
+/* Abroad Cell text */
+.abroad-logo {
+    font-size: 36px;
+    margin-top: -5px;
+    font-weight: bold;
+    color: #f71818;  /* SINGLE COLOR */
+}
+
+/* ---------- SECTION TITLE ---------- */
+.section-title {
+    font-size: 18px;
+    color: #ffffff;
+    background: #fc8600;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 30px;
+    font-weight: bold;
+    /* text-decoration: underline; */
+}
+
+/* ---------- INPUTS ---------- */
+input, select {
+    padding: 7px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    /* width: 220px; */
+    
+}
+
+.small-input { width: 120px; }
+.date-field { width: 160px; }
+
+/* ---------- TABLE ---------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+th, td {
+    border: 1px solid #0f0a07;
+    padding: 8px;
+}
+
+th {
+    background: #f7e64f;
+    color: #700000;
+    font-weight: bold;
+}
+
+/* ---------- RESPONSIVE TABLE ---------- */
+.responsive-table input {
+    width: 90%;
+}
+
+@media (max-width: 768px) {
+    .responsive-table,
+    .responsive-table thead,
+    .responsive-table tbody,
+    .responsive-table th,
+    .responsive-table td,
+    .responsive-table tr {
+        display: block;
+    }
+
+    .responsive-table thead { display: none; }
+
+    .responsive-table tr {
+        margin-bottom: 15px;
+        background: #fff3f3;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #f2b5b5;
+    }
+
+    .responsive-table td {
+        border: none;
+        position: relative;
+        padding-left: 45%;
+        margin-top: 10px;
+    }
+
+    .responsive-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 12px;
+        font-weight: bold;
+        color: #a80000;
+    }
+}
+
+/* PDF Button */
+.download-btn {
+    background: #fb8601;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    float: right;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.download-btn:hover {
+    background: #f83c03;
+}
+
+/* Signature */
+.signature {
+    font-size: 18px;
+    font-weight: bold;
+    float: right;
+    margin-top: 20px;
+}
+ .fill-note {
+    font-size: 15px;
+    font-weight: bold;
+    color: black;  /* Same maroon color as heading */
+    text-align: center;
+    margin-top: -8px;
+}
+
+input, textarea, select, td, th, p, label {
+    text-transform: uppercase;
+}
+
