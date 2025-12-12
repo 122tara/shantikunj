@@ -241,32 +241,36 @@ async function downloadPDF() {
 }
 </script> -->
 
-    <script>
+  <script>
 async function downloadPDF() {
     const { jsPDF } = window.jspdf;
     const element = document.getElementById("formContent");
 
+    // Save original values
     const originalWidth = element.style.width;
     const originalMaxWidth = element.style.maxWidth;
 
-    // SAFE WIDTH (prevents cutting on right
-    element.style.width = "1000px";
-    element.style.maxWidth = "1000px";
+    // 🔥 FINAL NO-CUT WIDTH
+    element.style.width = "420px";
+    element.style.maxWidth = "420px";
+    element.style.margin = "0 auto";
 
-    await new Promise(r => setTimeout(r, 250));
+    await new Promise(r => setTimeout(r, 200));
 
-    // increase scale for higher clarity (file size increases)
     const canvas = await html2canvas(element, {
-        scale: 2.5,   // 💛 higher scale = sharper PDF (1–2MB)
-        useCORS: true
+        scale: 4,        // High DPI
+        useCORS: true,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: 420
     });
 
-    // Restore original layout
+    // Restore original
     element.style.width = originalWidth;
     element.style.maxWidth = originalMaxWidth;
 
-    // JPEG quality 0.90 → larger but still <2MB
-    const imgData = canvas.toDataURL("image/jpeg", 0.90);
+    // 🔥 MAX quality JPEG (bigger file size)
+    const imgData = canvas.toDataURL("image/jpeg", 1.0);
 
     const pdf = new jsPDF("p", "mm", "a4");
     const pageWidth = pdf.internal.pageSize.getWidth();
@@ -278,8 +282,10 @@ async function downloadPDF() {
 </script>
 
 
+
 </body>
 </html>
+
 
 
 
